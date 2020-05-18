@@ -1,48 +1,48 @@
 const express = require('express');
+const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const postRoutes = require('./routes/admin');
-//const script = require('./public/script')
+var cors = require('cors')
 
 
 
-const app = express()
+
+let opts = {
+  "origin": "*",
+}
+
 const stackPost = [];
 //app.use('/', postRoutes);
+app.use(cors(opts))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.post('/', async(req,res, next)=>{
+app.post('/post', async (req, res, next) => {
 
-  // const error =()=>{
-  //    script.error;
-  // }
 
- const post = {
-     Fullname: req.body.Fullname,
-    Mail : req.body.Mail
+  res.send("Hello")
+  const post = {
+    Fullname: req.body.Fullname,
+    Mail: req.body.mail
   }
-  try{
-    if(Fullname ==='' || Mail ===''){
+  try {
 
-    }
-  const jsonParams = JSON.stringify(post)
-  const sentPosts = await jsonParams;
-  res.send(sentPosts)
-  console.log(sentPosts)
-  }
-  catch(err){
-     res.send({message:err})
+    console.log(post);
+
+  } catch (err) {
+    console.log(err);
   }
 
 })
-app.use('/',(req,res,next)=>{
-  res.redirect('/success.html')
-})
+// app.use('/', (req, res, next) => {
+//   res.redirect('/success.html')
+// })
 
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT , console.log(`server started at ${PORT}`) )
+app.listen(PORT, console.log(`server started at ${PORT}`))
