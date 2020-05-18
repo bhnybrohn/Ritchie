@@ -1,10 +1,13 @@
-// //const {default:axios} = require('axios');
-// const bodyparser = require('body-parser'
-
-const fullName = document.querySelector('#fullName').value;
+const fullName = document.getElementById('fullName').value;
 const mail = document.getElementById('mail').value;
-const alert = document.getElementById('alert');
-exports = function err(){
-    const errorMessage = "Please Input Neccasary Values"
-    alert.createTextNode(errorMessage);
+const submit = document.getElementById('submit');
+
+function log(e) {
+    e.preventDefault();
+    console.log(fullName);
+    axios.post('http://localhost:3000/post', {
+        Fullname: fullName,
+        mail: mail
+    })
 }
+submit.addEventListener('click', log, false);
